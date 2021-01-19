@@ -1,0 +1,43 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+MOZILLA_INTERNAL_API = 1
+
+include $(topsrcdir)/config/rules.mk
+
+ifeq (gonk,$(MOZ_WIDGET_TOOLKIT))
+# extra options to compile nv.h
+# RQ : (u)int32/16/8 will be defined a PR(u)int32
+#DEFINES += -D_UINT32_DEFINED -D_UINT16_DEFINED -D_UINT8_DEFINED
+#DEFINES += -D_INT32_DEFINED -D_INT16_DEFINED -D_INT8_DEFINED
+DEFINES += -DPACKED=__packed -DPACKED_POST=
+endif
+
+ifeq (SPR, $(TARGET_ISP))
+DEFINES += -DTARGET_ISP_IS_SPR
+endif
+
+ifeq (ATT, $(TARGET_ISP))
+DEFINES += -DTARGET_ISP_IS_ATT
+endif
+
+ifeq (TMO, $(TARGET_ISP))
+DEFINES += -DTARGET_ISP_IS_TMO
+endif
+
+ifeq (goflip1, $(TARGET_PRODUCT))
+DEFINES += -DTARGET_PRODUCT_IS_GOFLIP1
+endif
+
+ifeq (gflip2, $(TARGET_PRODUCT))
+DEFINES += -DTARGET_PRODUCT_IS_GFLIP2
+endif
+
+ifeq (kuangfei, $(TARGET_PRODUCT))
+DEFINES += -DTARGET_PRODUCT_IS_KUANGFEI
+endif
+
+# Add VPATH to LOCAL_INCLUDES so we are going to include the correct backend
+# subdirectory (and the inc one).
+#include $(topsrcdir)/ipc/chromium/chromium-config.mk

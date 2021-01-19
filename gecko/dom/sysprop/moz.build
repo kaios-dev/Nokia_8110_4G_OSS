@@ -1,0 +1,77 @@
+# -*- Mode: python; c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 40 -*-
+# vim: set filetype=python:
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+XPIDL_SOURCES += [
+    'JrdISysProp.idl',
+    'nsIDOMIccOma.idl',
+]
+
+XPIDL_MODULE = 'dom_sysprop'
+
+EXPORTS += [
+    'JrdSysProp.h',
+    'sysprop_constants.h',
+]
+
+EXPORTS.mozilla.dom.sysprop += [
+    'AndroidSystemPropertyHelper.h',
+    'MozSysPropChild.h',
+    'MozSysPropChildThread.h',
+    'MozSysPropMain.h',
+    'MozSysPropMainThread.h',
+    'MozSysPropManager.h',
+    'MozSysPropMessager.h',
+    'MozSysPropParent.h',
+    'MozSysPropQueue.h',
+    'NvHelper.h',
+    'PropertyFileHelper.h',
+    'sysprop.h',
+    'sysprop_type.h',
+    'UiccHelper.h',
+]
+
+SOURCES += [
+    'AndroidSystemPropertyHelper.cpp',
+    'JrdSysProp.cpp',
+    'MozSysPropChild.cpp',
+    'MozSysPropChildThread.cpp',
+    'MozSysPropMain.cpp',
+    'MozSysPropMainThread.cpp',
+    'MozSysPropManager.cpp',
+    'MozSysPropParent.cpp',
+    'NvHelper.cpp',
+    'PropertyFileHelper.cpp',
+    'UiccHelper.cpp',
+]
+NO_VISIBILITY_FLAGS = True
+IPDL_SOURCES += [
+    'ipc/PSysProp.ipdl',
+]
+
+EXTRA_COMPONENTS += [
+    'IccOma.js',
+    'IccOma.manifest',
+]
+
+EXTRA_JS_MODULES += [
+    'IccOma.jsm',
+    'IccOmaWapPDU.jsm',
+]
+
+FAIL_ON_WARNINGS = True
+LOCAL_INCLUDES += [
+  '../../../external/icu/icu4c/source/common',
+  '../../../external/libxml2/include',
+  '/dom/sysprop',
+]
+include('/ipc/chromium/chromium-config.mozbuild')
+
+OS_LIBS += [
+        'xml2',
+    ]
+
+FINAL_LIBRARY ='xul'

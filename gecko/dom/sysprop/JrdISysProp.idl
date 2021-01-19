@@ -1,0 +1,19 @@
+#include "nsISupports.idl"
+
+[scriptable, uuid(7cadabf6-ca0e-4fd2-848d-a0bcec56551f)]
+
+interface nsIJrdSysProp : nsISupports
+{
+   const long ERR_CODE_UNKNOWN_ITEM = -1;
+   const long ERR_CODE_INVALID_PERM = -2;
+   const long ERR_CODE_UNKNOWN_TYPE = -3;
+   const long ERR_CODE_ERROR_TYPE = -4;
+   const long ERR_CODE_GET = -5;
+   const long ERR_CODE_SET = -6;
+
+   void getSysPropByID(in long id, out DOMString value, [retval] out long errNo);
+   void getSysPropByNode(in DOMString node, out DOMString value, [retval] out long errNo);
+   void setSysPropByID (in long id, in DOMString value, in boolean updatePri, [retval]  out long errNo);
+   void setSysPropByNode (in DOMString node, in DOMString value, in boolean updatePri, [retval]  out long errNo);
+   void execute(in DOMString node,[retval]  out long errNo);
+};

@@ -1,0 +1,31 @@
+/* cxk add for provObj/coverageMap */
+#include "domstubs.idl"
+
+[scriptable, uuid(2da9a41c-553d-42fa-a47f-5a4e23aaf85e)]
+interface nsIIccOmaResult : nsISupports
+{
+  readonly attribute DOMString result;
+  readonly attribute long     sw1;
+  readonly attribute long     sw2;
+};
+
+[scriptable, uuid(2da9a41c-553d-42fa-a47f-5a4e23aaf85d)]
+interface nsIIccOmaCallback : nsISupports
+{
+  void handle(in DOMString aName, in jsval sw1, in jsval sw2);
+  void handleError(in DOMString aErrorMessage);
+};
+
+[scriptable, uuid(1da9a41c-553d-42fa-a47f-5a4e23aaf86f)]
+interface nsIDOMIccOma : nsISupports
+{
+  void writeToUicc(in DOMString data);
+  void receiveWapPush([array, size_is(aLength)] in octet aData,
+                      in unsigned long                   aLength,
+                      in unsigned long                   aOffset,
+                      in jsval                           aOptions,
+                      in DOMString                       appId);
+};
+
+//make c++ header file
+//$python <PATH>/gaia/xulrunner-sdk-30/xulrunner-sdk/sdk/bin/header.py --cachedir=. -o IHelloXpcomService.h IHelloXpcomService.idl -I <PATH>/gaia/xulrunner-sdk-30/xulrunner-sdk/idl/

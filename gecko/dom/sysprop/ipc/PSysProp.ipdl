@@ -1,0 +1,28 @@
+/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+include protocol PContent;
+
+namespace mozilla {
+namespace dom {
+namespace sysprop {
+
+async protocol PSysProp {
+    manager PContent;
+
+child:
+    SysPropValue(uint32_t id,nsString sysProp);
+    SysPropValueError(uint32_t id,nsString error);
+    CompleteResult(uint32_t id,bool isSuccess,nsString error);
+
+parent:
+    __delete__();
+    GetSysProp(uint32_t id);
+    SetSysProp(uint32_t id,nsString sysProp);
+    Execute(uint32_t id);
+};
+
+} // namespace sysprop
+} // namespace dom
+} // namespace mozilla
